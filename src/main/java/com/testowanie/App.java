@@ -1,13 +1,27 @@
 package com.testowanie;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
+
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class App extends Application {
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+
+	@Override
+	public void init() throws Exception {
+		super.init();
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		primaryStage.show();
+	}
+
+	@Override
+	public void stop() throws Exception {
+		super.stop();
+	}
 }
