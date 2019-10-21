@@ -17,6 +17,8 @@ public class App extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		ViewManager.setPrimarySage(primaryStage);
+		ViewManager.loadView("VLoginScreen");
 		primaryStage.show();
 	}
 
