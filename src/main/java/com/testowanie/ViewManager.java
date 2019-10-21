@@ -22,7 +22,9 @@ public abstract class ViewManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		primarySage.setScene(new Scene(root,1000,800));
+		Scene scene = new Scene(root,1000,800);
+		scene.getStylesheets().add(ViewManager.class.getClassLoader().getResource("main.css").toExternalForm());
+		primarySage.setScene(scene);
 	}
 
 }
