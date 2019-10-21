@@ -1,62 +1,57 @@
 package com.testowanie;
 
-import java.util.Objects;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "Task")
 public class Task {
-	private int id;
-	private String name;
-	private boolean done;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "taskId")
+	private int taskId;
+	@Column(name = "taskListId")
+	private int taskListId;
+	@Column(name = "taskName")
+	private String taskName;
+	@Column(name = "inProgress")
+	private boolean inProgress;
 
+	public Task(){
 
-	public Task() {
 	}
 
-	public Task(int id, String name) {
-		this.id = id;
-		this.name = name;
+	public Task(String name, int taskListId){
+		this.taskName = name;
+		this.inProgress = true;
+		this.taskListId = taskListId;
 	}
 
-	public int getId() {
-		return id;
+	public int getId(){
+		return taskId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public int getTaskListId(){
+		return taskListId;
 	}
 
-
-
-	public String getName() {
-		return name;
+	public void setTaskListId(int taskListId) {
+		this.taskListId = taskListId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getName(){
+		return taskName;
 	}
 
-	public boolean isDone() {
-		return done;
+	public void setName(String name){
+		this.taskName = name;
 	}
 
-	public void setDone(boolean done) {
-		this.done = done;
+	public boolean isInProgress(){
+		return inProgress;
 	}
 
-	@Override
-	public String toString() {
-		return name;
+	public void setInProgress(boolean bool){
+		this.inProgress = bool;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Task task = (Task) o;
-		return id == task.id;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
 }

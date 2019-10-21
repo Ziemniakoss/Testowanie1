@@ -14,7 +14,7 @@
 		<Insets top="10" bottom="10" left="10" right="10"/>
 	</padding>
 
-	<Label text="To-Do app" GridPane.columnSpan="2"/>
+	<Label text="To-Do app" GridPane.columnSpan="2" styleClass="header"/>
 
 	<Label text="Login: " GridPane.rowIndex="1"/>
 	<TextField GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="login"/>

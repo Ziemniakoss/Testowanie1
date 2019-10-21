@@ -1,9 +1,64 @@
-.left{
-    -fx-background-color: blue;
+.button{
+	-fx-background-color: #494444;
+	-fx-text-fill: white;
+}
+.check-box{
+	-fx-background-color: #494444;
+	-fx-text-fill: white;
+}
+.check-box.box{
+	-fx-background-color: transparent;
+	-fx-text-fill: white;
+
+}
+.check-box:selected > .box {
+    -fx-background-color: lime;
+}
+
+.check-box > .box {
+    -fx-background-color: transparent;
+}
+
+.header{
+	-fx-font-size: 30;
+	-fx-alignment: center;
+-fx-text-alignment: center;
+}
+
+.text-field{
+	-fx-background-color: #494444;
+	-fx-text-fill: white;
+}
+
+.label{
+	-fx-background-color: transparent;
+	-fx-text-fill: white;
+}
+
+.root{
+    -fx-background-color: #222222;
+    -fx-font-size: 14;
+}
+
+.side{
+    -fx-background-color: #2f2b2b;
+    -fx-color: white;
+}
+.center{
+    -fx-background-color: #2c2c2c;
     -fx-color: white;
 }
 
-.right{
-    -fx-background-color:blue;
-    -fx-color: white;
+.list-view{
+	-fx-background-color: transparent;
+	-fx-selection-bar: green;
+}
+.list-cell{
+	-fx-background-color: transparent;
+	-fx-text-fill: white;
+	-fx-cell-size: 40;
+}
+
+.list-cell:selected:focused{
+	-fx-background-color: #494444;
 }

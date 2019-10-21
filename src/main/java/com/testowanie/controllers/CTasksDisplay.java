@@ -1,5 +1,6 @@
 package com.testowanie.controllers;
 
+import com.testowanie.MySqlInterface;
 import com.testowanie.Task;
 import com.testowanie.TaskList;
 import javafx.collections.FXCollections;
@@ -35,9 +36,10 @@ public class CTasksDisplay implements Initializable {
 	private Button rightSaveChangesButton;
 
 	private ObservableList<Task> tasks = FXCollections.observableArrayList();
-	private ObservableList<TaskList> tasksLists = FXCollections.observableArrayList(new TaskList(1, "lista 1"), new TaskList(2, "lista 2"), new TaskList(3, "Lista 3"));//todo usunac wartosci
+	private ObservableList<TaskList> tasksLists = FXCollections.observableArrayList();
 	private Task displayedTask;
 	private TaskList displayedTaskList;
+	private MySqlInterface db = new MySqlInterface();
 
 
 	@FXML
@@ -102,14 +104,10 @@ public class CTasksDisplay implements Initializable {
 				displayedTaskList = selected;
 
 				//todo zamiasit tworzenia tutaj listy t trezea wartosci pobrac z bazy
-				ArrayList<Task> t = new ArrayList<Task>();
-				t.add(new Task(1, selected.getName() + " 1"));
-				t.add(new Task(2, selected.getName() + " 2"));
-				t.add(new Task(3, selected.getName() + " 3"));
-
+//				Lis
 
 				centerTaskListView.getItems().clear();
-				centerTaskListView.getItems().addAll(t);
+//				centerTaskListView.getItems().addAll(result);
 				System.out.println("Selected " + selected);
 			}
 
@@ -118,7 +116,7 @@ public class CTasksDisplay implements Initializable {
 			//Wyświetl dane tego zadania
 			if (n == null || n.equals(displayedTask))
 				return;
-			rightDoneCheckBox.setSelected(n.isDone());
+			rightDoneCheckBox.setSelected(n.isInProgress());
 			rightTaskNameTextBox.setText(n.getName());
 		});
 

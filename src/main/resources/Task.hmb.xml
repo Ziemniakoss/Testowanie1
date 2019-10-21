@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name = "Task" table = "Task">
+
+        <meta attribute = "class-description">
+            This class contains the user detail.
+        </meta>
+
+        <id name = "taskId" type = "int" column = "taskId">
+            <generator class="native"/>
+        </id>
+
+        <property name = "taskName " column = "taskName " type = "string"/>
+        <property name = "inProgress" column = "inProgress" type = "boolean"/>
+        <property name = "taskListId" column = "taskListId" type = "int"/>
+    </class>
+</hibernate-mapping>
