@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 public class App extends Application {
 	public static void main(String[] args) {
 		MySqlInterface mySqlInnterface = new MySqlInterface();
-		mySqlInnterface.addUser("akmed", "haslo");
+		mySqlInnterface.addUser("ussername", "password");
 		launch(args);
 	}
 

@@ -1,5 +1,7 @@
 package com.testowanie;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,7 @@ public class Task {
 	@Column(name = "taskName")
 	private String taskName;
 	@Column(name = "inProgress")
+	@ColumnDefault("0")
 	private boolean inProgress;
 
 	public Task(){
@@ -52,6 +55,11 @@ public class Task {
 
 	public void setInProgress(boolean bool){
 		this.inProgress = bool;
+	}
+
+	@Override
+	public String toString() {
+		return taskName;
 	}
 
 }

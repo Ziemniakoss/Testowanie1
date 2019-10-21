@@ -20,8 +20,10 @@ public class CLoginScreen {
 		MySqlInterface db = new MySqlInterface();
 		if (db.userExists(login.getText().trim())) {
 			User u = db.getUsers(login.getText().trim());
-			if (password.getText().equals(u.getPassword()))
+			if (password.getText().equals(u.getPassword())) {
+				ViewManager.setUser(u);
 				ViewManager.loadView("VTasksDisplay");
+			}
 			else
 				System.err.println("Wrong password");
 		} else {

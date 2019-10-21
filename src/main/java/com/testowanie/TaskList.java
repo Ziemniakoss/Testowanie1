@@ -42,4 +42,9 @@ public class TaskList {
 		this.userId = id;
 	}
 
+	@Override
+	public String toString() {
+		return taskListName;
+	}
+
 }

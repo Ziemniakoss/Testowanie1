@@ -17,6 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CTasksDisplay implements Initializable {
@@ -58,11 +59,15 @@ public class CTasksDisplay implements Initializable {
 	}
 
 	private void addNewTaskList(String name) {
-		TaskList newTaskList = new TaskList();
-		newTaskList.setName(name);
-		db.addTaskList(name, ViewManager.getUser().getId());
-		tasksLists.add(newTaskList);
-		System.out.println("Dodano liste zadan: " + name);
+		if(name.compareTo("")!=0) {
+			TaskList newTaskList = new TaskList();
+			newTaskList.setName(name);
+			db.addTaskList(name, ViewManager.getUser().getId());
+			//tasksLists.add(newTaskList);
+			tasksLists.clear();
+			tasksLists.addAll(db.getTaskLists(ViewManager.getUser()));
+			System.out.println("Dodano liste zadan: " + name);
+		}
 	}
 
 	/**
@@ -82,18 +87,37 @@ public class CTasksDisplay implements Initializable {
 	}
 
 	private void addNewTask(String taskName, TaskList taskList) {
-		Task newTask = new Task();
-		newTask.setName(taskName);
-		db.addTask(taskName, displayedTaskList.getId());
-		tasks.add(newTask);
-		System.out.println("Dodano zadanie: " + taskName + "do listy zadań " + taskList);
+		if(taskName.compareTo("")!=0&&taskList!=null) {
+			Task newTask = new Task();
+			newTask.setName(taskName);
+			db.addTask(taskName, displayedTaskList.getId());
+			tasks.add(newTask);
+			System.out.println("Dodano zadanie: " + taskName + "do listy zadań " + taskList);
+			tasks.clear();
+			tasks.addAll(db.getTasks(displayedTaskList));
+		}
 	}
+
 
 	@FXML
 	private void rightSaveChangesButtonOnAction(ActionEvent actionEvent) {
-		db.updateTaskName(displayedTask, rightTaskNameTextBox.getText().trim());
-		db.updateTaskState(displayedTask, rightDoneCheckBox.isSelected());
+		if(displayedTask!=null) {
+			if (displayedTask.getName().compareTo(rightTaskNameTextBox.getText().trim()) != 0 && rightTaskNameTextBox.getText().trim().compareTo("") != 0) {
+				db.updateTaskName(displayedTask, rightTaskNameTextBox.getText().trim());
+				displayedTask.setName(rightTaskNameTextBox.getText().trim());
+				centerTaskListView.setItems(tasks);
+				//task refresh
+				tasks.clear();
+				tasks.addAll(db.getTasks(displayedTaskList));
+			}
+
+			if (displayedTask.isInProgress() != rightDoneCheckBox.isSelected()) {
+				db.updateTaskState(displayedTask, rightDoneCheckBox.isSelected());
+				displayedTask.setInProgress(rightDoneCheckBox.isSelected());
+			}
+		}
 	}
+
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
