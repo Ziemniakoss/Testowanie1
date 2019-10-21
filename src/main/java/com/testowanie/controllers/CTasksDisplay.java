@@ -3,6 +3,7 @@ package com.testowanie.controllers;
 import com.testowanie.MySqlInterface;
 import com.testowanie.Task;
 import com.testowanie.TaskList;
+import com.testowanie.ViewManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +17,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CTasksDisplay implements Initializable {
@@ -60,7 +60,7 @@ public class CTasksDisplay implements Initializable {
 	private void addNewTaskList(String name) {
 		TaskList newTaskList = new TaskList();
 		newTaskList.setName(name);
-		//todo dodawanie nowej listy zadan do bazy danych
+		db.addTaskList(name, ViewManager.getUser().getId());
 		tasksLists.add(newTaskList);
 		System.out.println("Dodano liste zadan: " + name);
 	}
@@ -69,7 +69,7 @@ public class CTasksDisplay implements Initializable {
 	 * Ładuje zadania, listy zadań z bazy danych i je wyświetla
 	 */
 	private void refresh() {
-		//todo pobranie list zadan i jej wyswietlenie
+		tasksLists.addAll(db.getTaskLists(ViewManager.getUser()));
 		tasks.clear();
 		rightDoneCheckBox.setSelected(false);
 		rightTaskNameTextBox.setText("");
@@ -84,14 +84,15 @@ public class CTasksDisplay implements Initializable {
 	private void addNewTask(String taskName, TaskList taskList) {
 		Task newTask = new Task();
 		newTask.setName(taskName);
-		//todo Dodwanie nowego zadania do bazy danych
+		db.addTask(taskName, displayedTaskList.getId());
 		tasks.add(newTask);
 		System.out.println("Dodano zadanie: " + taskName + "do listy zadań " + taskList);
 	}
 
 	@FXML
 	private void rightSaveChangesButtonOnAction(ActionEvent actionEvent) {
-		//todo nadpisywanie zadania w bazie danych
+		db.updateTaskName(displayedTask, rightTaskNameTextBox.getText().trim());
+		db.updateTaskState(displayedTask, rightDoneCheckBox.isSelected());
 	}
 
 	@Override
@@ -102,12 +103,8 @@ public class CTasksDisplay implements Initializable {
 			TaskList selected = leftTaskListListView.getSelectionModel().getSelectedItem();
 			if (selected != null && !selected.equals(displayedTaskList)) {
 				displayedTaskList = selected;
-
-				//todo zamiasit tworzenia tutaj listy t trezea wartosci pobrac z bazy
-//				Lis
-
 				centerTaskListView.getItems().clear();
-//				centerTaskListView.getItems().addAll(result);
+				centerTaskListView.getItems().addAll(db.getTasks(displayedTaskList));
 				System.out.println("Selected " + selected);
 			}
 
@@ -116,6 +113,7 @@ public class CTasksDisplay implements Initializable {
 			//Wyświetl dane tego zadania
 			if (n == null || n.equals(displayedTask))
 				return;
+			displayedTask = n;
 			rightDoneCheckBox.setSelected(n.isInProgress());
 			rightTaskNameTextBox.setText(n.getName());
 		});

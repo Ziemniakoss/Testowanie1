@@ -1,5 +1,7 @@
 package com.testowanie.controllers;
 
+import com.testowanie.MySqlInterface;
+import com.testowanie.User;
 import com.testowanie.ViewManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,8 +14,18 @@ public class CLoginScreen {
 	@FXML
 	private PasswordField password;
 
+
 	@FXML
 	private void loginButton(ActionEvent actionEvent) {
-		ViewManager.loadView("VTasksDisplay");
+		MySqlInterface db = new MySqlInterface();
+		if (db.userExists(login.getText().trim())) {
+			User u = db.getUsers(login.getText().trim());
+			if (password.getText().equals(u.getPassword()))
+				ViewManager.loadView("VTasksDisplay");
+			else
+				System.err.println("Wrong password");
+		} else {
+			System.err.println("Illegal user");
+		}
 	}
 }
