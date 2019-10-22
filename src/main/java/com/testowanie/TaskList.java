@@ -1,6 +1,7 @@
 package com.testowanie;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "TaskList")
@@ -47,4 +48,18 @@ public class TaskList {
 		return taskListName;
 	}
 
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		TaskList taskList = (TaskList) o;
+		return taskListId == taskList.taskListId;
+	}
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(taskListId);
+	}
 }

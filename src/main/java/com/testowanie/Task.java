@@ -3,6 +3,7 @@ package com.testowanie;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Task")
@@ -25,7 +26,7 @@ public class Task {
 
 	public Task(String name, int taskListId){
 		this.taskName = name;
-		this.inProgress = true;
+		this.inProgress = false;
 		this.taskListId = taskListId;
 	}
 
@@ -62,4 +63,18 @@ public class Task {
 		return taskName;
 	}
 
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Task task = (Task) o;
+		return taskId == task.taskId;
+	}
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(taskId);
+	}
 }

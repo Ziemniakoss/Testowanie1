@@ -49,7 +49,6 @@ public class CTasksDisplay implements Initializable {
 			addNewTaskList(leftNewListTextBox.getText().trim());
 			leftNewListTextBox.setText("");
 		}
-		System.out.println(keyEvent.getCode());
 	}
 
 	@FXML
@@ -63,7 +62,7 @@ public class CTasksDisplay implements Initializable {
 			TaskList newTaskList = new TaskList();
 			newTaskList.setName(name);
 			db.addTaskList(name, ViewManager.getUser().getId());
-			//tasksLists.add(newTaskList);
+			tasksLists.add(newTaskList);
 			tasksLists.clear();
 			tasksLists.addAll(db.getTaskLists(ViewManager.getUser()));
 			System.out.println("Dodano liste zadan: " + name);
@@ -143,5 +142,22 @@ public class CTasksDisplay implements Initializable {
 		});
 
 		refresh();
+	}
+
+	public void centerNewTaskTextField(KeyEvent keyEvent) {
+		if(keyEvent.getCode() ==KeyCode.ENTER){
+			newTaskOnAction(null);
+		}
+	}
+
+	@FXML
+	private void displayedTaskNameKeyPressed(KeyEvent keyEvent) {
+			rightSaveChangesButtonOnAction(null);
+
+	}
+
+	@FXML
+	private void doneCheckBoxOnAction(ActionEvent actionEvent) {
+		rightSaveChangesButtonOnAction(null);
 	}
 }

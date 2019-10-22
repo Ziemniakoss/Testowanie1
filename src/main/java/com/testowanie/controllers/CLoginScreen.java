@@ -27,7 +27,13 @@ public class CLoginScreen {
 			else
 				System.err.println("Wrong password");
 		} else {
-			System.err.println("Illegal user");
+			User u = new User();
+			u.setPassword(password.getText());
+			u.setName(login.getText().trim());
+			db.addUser(u.getName(),u.getPassword());
+			u = db.getUsers(u.getName());
+			ViewManager.setUser(u);
+			ViewManager.loadView("VTasksDisplay");
 		}
 	}
 }

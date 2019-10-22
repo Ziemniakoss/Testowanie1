@@ -27,7 +27,7 @@
             <ListView AnchorPane.bottomAnchor="60" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"
                       AnchorPane.topAnchor="10" fx:id="centerTaskListView"/>
             <TextField fx:id="centerNewTaskTextField" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10"
-                       AnchorPane.rightAnchor="80" prefHeight="40" maxHeight="40" minHeight="40"/>
+                       AnchorPane.rightAnchor="80" prefHeight="40" maxHeight="40" minHeight="40" onKeyReleased="#centerNewTaskTextField"/>
             <Button onAction="#newTaskOnAction" text="Add" maxWidth="60" prefWidth="60" minWidth="60" maxHeight="40"
                     minHeight="40"
                     prefHeight="40" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10"/>
@@ -42,14 +42,10 @@
                     <Insets bottom="10" top="10" left="10" right="10"/>
                 </padding>
 
-                <CheckBox fx:id="rightDoneCheckBox"/>
-                <TextField fx:id="rightTaskNameTextBox" GridPane.columnIndex="1"/>
+                <CheckBox fx:id="rightDoneCheckBox" onAction="#doneCheckBoxOnAction"/>
+                <TextField fx:id="rightTaskNameTextBox" GridPane.columnIndex="1"  onKeyTyped="#displayedTaskNameKeyPressed"/>
 
             </GridPane>
-            <Button fx:id="rightSaveChangesButton" onAction="#rightSaveChangesButtonOnAction"
-                    AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10"
-                    text="Save" maxHeight="40" minHeight="40" prefHeight="40" maxWidth="60"
-                    minWidth="60" prefWidth="60"/>
         </AnchorPane>
     </right>
 </BorderPane>
